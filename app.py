@@ -2,6 +2,7 @@
 Intellect Hire: The AI Talent Curator
 """
 import base64
+import os
 from pathlib import Path
 import time
 import streamlit as st
@@ -75,6 +76,10 @@ if GEMINI_AI:
 			tab_profile_col_row_1 = st.columns([1, 1])
 
 			progress_bar = st.progress(0, 'Extracting pages from PDF...')
+
+			if not os.path.exists('./temp'):
+				os.makedirs('./temp')
+
 			with open('./temp/temp.pdf', mode='wb') as file:
 				file.write(file_upload_var.getvalue())
 			extract_pages = extract_pages_from_pdf('./temp/temp.pdf')
