@@ -21,4 +21,10 @@ jobs:
         pip install -r requirements.txt
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --output-format=text > pylint.txt | cat pylint.txt
+        pylint $(git ls-files '*.py') --output-format=text > pylint.txt
+    - name: Upload pylint.txt
+      uses: actions/upload-artifact@v3
+      with:
+        name: pylint.txt
+        path: pylint.txt
+        retention-days: 5
