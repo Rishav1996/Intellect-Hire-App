@@ -20,10 +20,4 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --recursive=y --output-file=pylint.txt --output-format=text
-    - name: Upload pylint.txt
-      uses: actions/upload-artifact@v3
-      with:
-        name: pylint.txt
-        path: pylint.txt
-        retention-days: 5
+        pylint *.py --recursive=y --fail-under 9 --fail-on E
