@@ -21,4 +21,4 @@ jobs:
         pip install -r requirements.txt
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        pylint $(git ls-files '*.py') --output-format=text | tee pylint.txt | python -c "import re; score = re.search(r'^Your code has been rated at ([0-9.]+)\/10', open('pylint.txt').read(), re.MULTILINE).group(1); print(score)"
