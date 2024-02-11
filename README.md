@@ -1,4 +1,4 @@
 # Intellect Hire: The AI Talent Curator
 
 [![Pylint](https://github.com/Rishav1996/Intellect-Hire-App/actions/workflows/pylint.yml/badge.svg)](https://github.com/Rishav1996/Intellect-Hire-App/actions/workflows/pylint.yml)
-<a href='https://intellect-hire-app.streamlit.app/' target="_blank"><img alt='Streamlit' src='https://img.shields.io/badge/Streamlit-100000?style=plastic&logo=Streamlit&logoColor=FB4242&labelColor=black&color=FF0000'/></a>
+[![Streamlit](https://intellect-hire-app.streamlit.app/)](https://intellect-hire-app.streamlit.app/)
