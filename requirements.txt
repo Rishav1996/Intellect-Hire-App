@@ -1,2 +1,4 @@
 streamlit
 langchain
+pandas
+google-generativeai
