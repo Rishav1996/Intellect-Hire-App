@@ -16,3 +16,5 @@ To use this application - Generate a Google Gemini API Key
 Demo
 
 https://github.com/Rishav1996/Intellect-Hire-App/assets/20603577/309ff038-f238-408d-bf5d-75f67bc9f22d
+
+Refer to the sample folder: sample.pdf
