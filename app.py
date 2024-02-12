@@ -211,25 +211,25 @@ if GEMINI_AI:
                                       'Award Information', 'Certification Information'])
 
             with basic_info_tab[0]:
-                if education_info.shape > 0:
+                if education_info.shape[0] > 0:
                     st.table(education_info)
                 else:
                     st.warning('No education information found')
 
             with basic_info_tab[1]:
-                if company_info.shape > 0:
+                if company_info.shape[0] > 0:
                     st.table(company_info)
                 else:
                     st.warning('No company information found')
 
             with basic_info_tab[2]:
-                if award_info.shape > 0:
+                if award_info.shape[0] > 0:
                     st.table(award_info)
                 else:
                     st.warning('No award information found')
 
             with basic_info_tab[3]:
-                if certification_info.shape > 0:
+                if certification_info.shape[0] > 0:
                     st.table(certification_info)
                 else:
                     st.warning('No certification information found')
