@@ -102,7 +102,11 @@ if GEMINI_AI:
             education_info_parser = get_education_info_parser()
             education_info = generate_results(GEMINI_AI, EXTRACT_PAGES, education_info_parser)
             education_info = pd.DataFrame(education_info['education_info'])
-            education_info.columns = ['Institution', 'Degree', 'Passing Date', 'Overall Percentage']
+            if len(education_info.columns) == 4 and education_info.shape[0] > 0:
+                education_info.columns = ['Institution', 'Degree', 'Passing Date',
+                                          'Overall Percentage']
+            else:
+                education_info = pd.DataFrame()
 
             progress_bar.progress(50, 'Extracting skill information...')
 
@@ -114,15 +118,22 @@ if GEMINI_AI:
             company_info_parser = get_company_info_parser()
             company_info = generate_results(GEMINI_AI, EXTRACT_PAGES, company_info_parser)
             company_info = pd.DataFrame(company_info['company_info'])
-            company_info.columns = ['Company Name', 'Start Date', 'End Date', \
-                                    'Tenure', 'Designation']
+            if len(company_info.columns) == 5 and company_info.shape[0] > 0:
+                company_info.columns = ['Company Name', 'Start Date', 'End Date', \
+                                        'Tenure', 'Designation']
+            else:
+                company_info = pd.DataFrame()
 
             progress_bar.progress(75, 'Extracting award information...')
 
             award_info_parser = get_award_info_parser()
             award_info = generate_results(GEMINI_AI, EXTRACT_PAGES, award_info_parser)
             award_info = pd.DataFrame(award_info['award_info'])
-            award_info.columns = ['Award Name', 'Organization', 'Year', 'Amount', 'Description']
+            if len(award_info.columns) == 5 and award_info.shape[0] > 0:
+                award_info.columns = ['Award Name', 'Organization', 'Year', 'Amount',
+                                      'Description']
+            else:
+                award_info = pd.DataFrame()
 
             progress_bar.progress(88, 'Extracting certification information...')
 
@@ -130,7 +141,10 @@ if GEMINI_AI:
             certification_info = generate_results(GEMINI_AI, EXTRACT_PAGES,
                                                   certification_info_parser)
             certification_info = pd.DataFrame(certification_info['cert_info'])
-            certification_info.columns = ['Certification Name', 'Year']
+            if len(certification_info.columns) == 2 and certification_info.shape[0] > 0:
+                certification_info.columns = ['Certification Name', 'Year']
+            else:
+                certification_info = pd.DataFrame()
 
             progress_bar.progress(100, 'Completed')
             time.sleep(2)
@@ -197,16 +211,28 @@ if GEMINI_AI:
                                       'Award Information', 'Certification Information'])
 
             with basic_info_tab[0]:
-                st.table(education_info)
+                if education_info.shape > 0:
+                    st.table(education_info)
+                else:
+                    st.warning('No education information found')
 
             with basic_info_tab[1]:
-                st.table(company_info)
+                if company_info.shape > 0:
+                    st.table(company_info)
+                else:
+                    st.warning('No company information found')
 
             with basic_info_tab[2]:
-                st.table(award_info)
+                if award_info.shape > 0:
+                    st.table(award_info)
+                else:
+                    st.warning('No award information found')
 
             with basic_info_tab[3]:
-                st.table(certification_info)
+                if certification_info.shape > 0:
+                    st.table(certification_info)
+                else:
+                    st.warning('No certification information found')
 
         with tabs[1]:
             st.info("Feature Coming Soon")
