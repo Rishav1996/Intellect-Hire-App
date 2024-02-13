@@ -8,6 +8,9 @@ from utils.prompt_structure import BasicInfoTemplate, ContactInfoTemplate, \
 from langchain.document_loaders import PyPDFLoader
 from langchain.prompts import PromptTemplate
 import google.generativeai as genai
+import base64
+from pathlib import Path
+
 
 generation_config = {
   "temperature": 0,
@@ -116,3 +119,33 @@ def generate_results(api_key, page, output_parser):
             max_retries = max_retries - 1
     result_obj = result_obj.dict()
     return result_obj
+
+
+def img_to_bytes(img_path):
+    """
+    Convert an image file to a base64 encoded string.
+
+    Args:
+        img_path (str): The file path of the image to be converted.
+
+    Returns:
+        str: The base64 encoded string representation of the image.
+    """
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+
+def img_to_html(img_path):
+    """
+    Convert an image to HTML representation.
+
+    Args:
+        img_path (str): The path to the image file.
+
+    Returns:
+        str: The HTML representation of the image.
+    """
+    img_html = f"<img src='data:image/png;base64,{img_to_bytes(img_path)}' class='img-fluid' \
+        width='96' style='display: block; margin-left: auto; margin-right: auto;'>"
+    return img_html

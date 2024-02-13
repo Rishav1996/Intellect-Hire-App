@@ -9,9 +9,8 @@ class BasicInfoTemplate(BaseModel):
     """
     This class represents the basic information of the candidate.
     """
-    name: str | None = Field(description="Extract the name of the candidate",
-                      type='string')
-    summary: str | None = Field(description="Summarize the profile's candidate under 50 words",
+    name: str = Field(description="Extract the name of the candidate", type='string')
+    summary: str = Field(description="Summarize the profile's candidate under 50 words",
                          type='string')
     total_experience: str | None = Field(description="Extract the total experience of the \
                                          candidate from the extracted summary",
