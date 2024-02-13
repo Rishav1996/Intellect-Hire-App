@@ -6,10 +6,10 @@
 "Intellect Hire: The AI Talent Curator" streamlines hiring by extracting resume details, prompting users to upload resumes, matching candidates with jobs, and evaluating candidate suitability, enhancing recruitment efficiency and accuracy.
 
 Features:
-- Extract Information from the given Resume
-- Ask any question from the Resume (In Progress)
-- Job Matching with respect to any job description (In Progress)
-- Candidate Evaluation (In Progess)
+- Extract Information from the given Resume - ✅
+- Ask any question from the Resume - 🚧
+- Job Matching with respect to any job description - 🚧
+- Candidate Evaluation - 🚧
 
 To use this application - Generate a Google Gemini API Key
 
