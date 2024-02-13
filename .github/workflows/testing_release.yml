@@ -5,7 +5,7 @@ on:
     types: [ closed ]
 
 jobs:
-  build_pylint:
+  pylint_check:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,8 +24,8 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint *.py --recursive=y --fail-under 9 --fail-on E
-  build_git_release:
-    needs: build_pylint
+  git_release:
+    needs: pylint_check
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -36,7 +36,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: release_check
-        release_name: Release v0
+        tag_name: release_v2
+        release_name: Release V2
         draft: false
         prerelease: false
