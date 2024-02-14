@@ -10,6 +10,8 @@ from langchain.prompts import PromptTemplate
 import google.generativeai as genai
 import base64
 from pathlib import Path
+import dotenv
+import os
 
 
 generation_config = {
@@ -27,6 +29,18 @@ basic_prompt = """# ROLE : `{role}`
 # FORMAT : `{format}`"""
 
 prompt_template = PromptTemplate.from_template(basic_prompt)
+
+
+def check_env_api_key():
+    """
+    Check if the API key is set in the .env file.
+    """
+    if os.path.exists(".env"):
+        get_gemini_key = dotenv.get_key(".env", "GEMINI_API")
+        return get_gemini_key
+    else:
+        return None
+
 
 def get_basic_info_parser():
     """

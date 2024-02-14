@@ -1,3 +1,4 @@
+.env
 temp/*.pdf
 __pycache__/*
 utils/__pycache__/*

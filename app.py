@@ -3,7 +3,7 @@ Intellect Hire: The AI Talent Curator
 """
 import streamlit as st
 
-from utils.common import img_to_html
+from utils.common import check_env_api_key, img_to_html
 from utils.layout import get_layout_profile
 
 
@@ -11,8 +11,12 @@ st.set_page_config(page_title="Intellect Hire: The AI Talent Curator",
                    page_icon="./assets/chatbot.png", layout="wide",
                    initial_sidebar_state="collapsed")
 
-GEMINI_AI = st.sidebar.text_input('Google Gemini API',
-                                  placeholder="Enter your API key here", type="password")
+
+if not check_env_api_key():
+    GEMINI_AI = st.sidebar.text_input('Google Gemini API',
+                                      placeholder="Enter your API key here", type="password")
+else:
+    GEMINI_AI = check_env_api_key()
 
 icon_col = st.columns([1, 3, 1])
 header_col = st.columns([1, 3, 1])
