@@ -1,3 +1,5 @@
+.env
 temp/*.pdf
 __pycache__/*
 utils/__pycache__/*
+layout/__pycache__/*

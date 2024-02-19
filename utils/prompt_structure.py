@@ -28,17 +28,20 @@ class ContactInfoTemplate(BaseModel):
     """
     email: str | None = Field(description="Extract the email of the candidate", type='string')
     address: str | None = Field(description="Extract the address of the candidate", type='string')
-    city: str | None = Field(description="Extract the city of the candidate from the extracted address",
-                      type='string')
-    state: str | None = Field(description="Extract the state of the candidate from the extracted address",
-                       type='string')
+    city: str | None = Field(description="Extract the city of the candidate from \
+                             the extracted address",
+                             type='string')
+    state: str | None = Field(description="Extract the state of the candidate from \
+                              the extracted address",
+                              type='string')
     country: str | None = Field(description="Extract the country of the candidate from the \
-                         extracted address",
-                         type='string')
+                                extracted address",
+                                type='string')
     pincode: str | None = Field(description="Extract the pincode of the candidate from the \
-                         extracted address",
-                         type='string')
-    phone_no: int | None = Field(description="Extract the contact details of the candidate", type='int')
+                                extracted address",
+                                type='string')
+    phone_no: int | None = Field(description="Extract the contact details of the candidate",
+                                 type='int')
 
 
 class EducationBaseInfoTemplate(BaseModel):
@@ -46,14 +49,14 @@ class EducationBaseInfoTemplate(BaseModel):
     This class represents the education information of the candidate.
     """
     institution_name: str | None = Field(description="Extract the instituation name where \
-                                  candidate has studied",
-                                  type='str')
+                                         candidate has studied",
+                                         type='str')
     type_of_degree: str | None = Field(description="Extract the degree of the candidate from the \
-                                instituation",
-                                type='str')
-    passing_date: str | None = Field(description="Extract the passing date of the candidate from the \
-                              instituation",
-                              type='str')
+                                       instituation",
+                                       type='str')
+    passing_date: str | None = Field(description="Extract the passing date of the candidate from \
+                                     the instituation",
+                                     type='str')
     overall_percentage: str | None = Field(description="Extract the percentage of the candidate \
                                            for the instituation",
                                            type='str')
@@ -72,13 +75,17 @@ class CompanyInfoTemplate(BaseModel):
     """
     This class represents the company information of the candidate.
     """
-    company_name: str | None = Field(description="Extract the company name where candidate has worked",
-                              type='str')
-    start_date: str | None = Field(description="Extract the start date for the company", type='str')
+    company_name: str | None = Field(description="Extract the company name where candidate \
+                                     has worked",
+                                     type='str')
+    start_date: str | None = Field(description="Extract the start date for the company",
+                                   type='str')
     end_date: str | None = Field(description="Extract the end date for the company", type='str')
-    tenure: str | None = Field(description="Calculate the tenure in years & months for the company",
-                        type='str')
-    designation: str | None = Field(description="Extract the role of the candidate for the company",
+    tenure: str | None = Field(description="Calculate the tenure in years & months for the \
+                               company",
+                               type='str')
+    designation: str | None = Field(description="Extract the role of the candidate for the \
+                                    company",
                                     type='str')
 
 
@@ -94,7 +101,8 @@ class AwardInfoTemplate(BaseModel):
     """
     This class represents the award information of the candidate.
     """
-    award_name: str | None = Field(description="Extract the award name which candidate has achieved",
+    award_name: str | None = Field(description="Extract the award name which candidate has \
+                                   achieved",
                                    type='str')
     award_org: str | None = Field(description="Extract the organisation name which have \
                                   given the award",type='str')
@@ -120,8 +128,9 @@ class CertificationInfoTemplate(BaseModel):
     """
     This class represents the certification information of the candidate.
     """
-    cert_name: str | None = Field(description="Extract the certificate name which candidate has gained",
-                           type='str')
+    cert_name: str | None = Field(description="Extract the certificate name which candidate has \
+                                  gained",
+                                  type='str')
     cert_year: str | None = Field(description="Extract the certification year when candidate has \
                                   gained for the certification extracted",
                                   type='str')
@@ -143,11 +152,11 @@ class SkillInfoTemplate(BaseModel):
     web_ui: list = Field(description="Extract the list of Web UI skills of the candidate has \
                          learned",
                          type='list')
-    web_backend: list = Field(description="Extract the list of Web Backend skills of the candidate \
-                              has learned",
+    web_backend: list = Field(description="Extract the list of Web Backend skills of the \
+                              candidate has learned",
                               type='list')
-    programming_languages: list = Field(description="Extract the list of Programming Languages of \
-                                        the candidate has learned",
+    programming_languages: list = Field(description="Extract the list of Programming \
+                                        Languages of the candidate has learned",
                                         type='list')
     libraries: list = Field(description="Extract the list of Libraries of the candidate has \
                             learned",

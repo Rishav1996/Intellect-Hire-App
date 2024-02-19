@@ -1,32 +1,58 @@
-"""
+"""generation_config
 This file contains the common functions used in the Intellect Hire app.
 """
+import base64
+from pathlib import Path
+import os
+from langchain.document_loaders.pdf import PyPDFLoader
+from langchain.prompts import PromptTemplate
+import google.generativeai as genai
+import dotenv
+import streamlit as st
+
 from langchain.output_parsers import PydanticOutputParser
 from utils.prompt_structure import BasicInfoTemplate, ContactInfoTemplate, \
   EducationListInfoTemplate, CompanyListInfoTemplate, AwardListInfoTemplate, \
   CertificationListInfoTemplate, SkillInfoTemplate
-from langchain.document_loaders import PyPDFLoader
-from langchain.prompts import PromptTemplate
-import google.generativeai as genai
-import base64
-from pathlib import Path
 
 
-generation_config = {
+generation_basic_config = {
   "temperature": 0,
   "top_p": 1,
   "top_k": 1,
   "max_output_tokens": 2048,
 }
 
+generation_ask_resume_config = {
+  "temperature": 1,
+  "max_output_tokens": 2048,
+}
 
-basic_prompt = """# ROLE : `{role}`
+BASIC_PROMPT = """# ROLE : `{role}`
 # CONTEXT : `{context}`
 # QUESTION : `{question}`
 # FEEDBACK : `{feedback}`
 # FORMAT : `{format}`"""
 
-prompt_template = PromptTemplate.from_template(basic_prompt)
+ASK_RESUME_PROMPT = """# ROLE : `{role}`
+# CONTEXT : `{context}`
+# QUESTION : `{question}`
+# NOTE : `{note}`
+# OUTPUT : """
+
+basic_prompt_template = PromptTemplate.from_template(BASIC_PROMPT)
+ask_resume_prompt_template = PromptTemplate.from_template(ASK_RESUME_PROMPT)
+
+
+def check_env_api_key():
+    """
+    Check if the API key is set in the .env file.
+    """
+    if os.path.exists(".env"):
+        get_gemini_key = dotenv.get_key(".env", "GEMINI_API")
+        return get_gemini_key
+    return None
+
 
 def get_basic_info_parser():
     """
@@ -88,6 +114,18 @@ def get_skill_info_parser():
     return skill_object_output_parser
 
 
+@st.cache_data(max_entries=10, show_spinner=False, ttl=3600)
+def write_file_to_pdf(file_upload_var):
+    """
+    Write a file to a PDF.
+    """
+    if not os.path.exists('./temp'):
+        os.makedirs('./temp')
+
+    with open('./temp/temp.pdf', mode='wb') as file:
+        file.write(file_upload_var.getvalue())
+
+
 def extract_pages_from_pdf(filepath):
     """
     Extract the pages from a PDF file.
@@ -98,27 +136,57 @@ def extract_pages_from_pdf(filepath):
     return page
 
 
-def generate_results(api_key, page, output_parser):
+@st.cache_data(max_entries=10, show_spinner=False, ttl=3600)
+def generate_basic_results(api_key, page, flag, _output_parser):
+    """
+    A function to generate basic results using an API key, page, and output parser.
+    It attempts to configure the API key, initialize a generative model, and generate content.
+    If an exception occurs, it retries a maximum of 10 times with feedback about the failure.
+    The result object is then parsed and returned.
+    """
+    print(f'Flag : {flag}')
     max_retries = 10
     result_obj = ""
     feedback = "N/A"
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name="gemini-pro", generation_config=generation_config)
+    model = genai.GenerativeModel(model_name="gemini-pro",
+                                  generation_config=generation_basic_config)
     while max_retries != 0:
         try:
-            prompt = prompt_template.format(role="You are an AI Based Resume Parser",
+            prompt = basic_prompt_template.format(role="You are an AI Based Resume Parser",
                                             context=page,
-                                            question="Extract the below information with respect to the context provided",
+                                            question="Extract the below information with respect \
+                                                to the context provided",
                                             feedback=feedback,
-                                            format=output_parser.get_format_instructions())
+                                            format=_output_parser.get_format_instructions())
             response = model.generate_content(prompt)
-            result_obj = output_parser.parse_with_prompt(prompt=prompt, completion=response.text)
+            result_obj = _output_parser.parse_with_prompt(prompt=prompt, completion=response.text)
             break
-        except Exception as exp:
-            feedback = f"Generate a proper formated JSON as mentioned in instructions {max_retries} out of 10"
+        except Exception:
+            feedback = f"Generate a proper formated JSON as mentioned in \
+                instructions {max_retries} out of 10"
             max_retries = max_retries - 1
     result_obj = result_obj.dict()
     return result_obj
+
+
+@st.cache_data(max_entries=10, show_spinner=False, ttl=3600)
+def generate_ask_resume_results(api_key, page, question):
+    """
+    Generate ask resume results using the specified API key, page, and question.
+    """
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel(model_name="gemini-pro",
+                                  generation_config=generation_ask_resume_config)
+
+    prompt = ask_resume_prompt_template.format(role="You are an AI Based Question & Answer \
+                                               Generation",
+                                               context=page,
+                                               question=question,
+                                               note="Generate the answer under 50 words")
+    response = model.generate_content(prompt)
+    response = response.text
+    return response
 
 
 def img_to_bytes(img_path):

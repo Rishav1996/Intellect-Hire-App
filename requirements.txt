@@ -1,5 +1,6 @@
 streamlit
-langchain
+langchain==0.1.1
+langchain-community==0.0.13
 pandas
 google-generativeai
 pypdf

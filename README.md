@@ -10,7 +10,7 @@
 
 ✅ Extract Information from the given Resume
 
-🚧 Ask any question from the Resume
+✅ Ask any question from the Resume
 
 🚧 Job Matching with respect to any job description
 
