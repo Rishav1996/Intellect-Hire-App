@@ -4,7 +4,8 @@ Intellect Hire: The AI Talent Curator
 import streamlit as st
 
 from utils.common import check_env_api_key, img_to_html
-from utils.layout import get_layout_profile
+from layout.profile import get_layout_profile
+from layout.ask_resume import get_layout_ask_resume
 
 
 st.set_page_config(page_title="Intellect Hire: The AI Talent Curator",
@@ -46,7 +47,7 @@ if GEMINI_AI:
             get_layout_profile(file_upload_var, GEMINI_AI)
 
         with tabs[1]:
-            st.info("Feature Coming Soon")
+            get_layout_ask_resume(file_upload_var, GEMINI_AI)
 
         with tabs[2]:
             st.info("Feature Coming Soon")

@@ -1,12 +1,12 @@
 """
-This file contains all the layout for the UI.
+This file contains all the profile layout for the UI.
 """
 import os
 import time
 import streamlit as st
 import pandas as pd
 
-from utils.common import extract_pages_from_pdf, generate_results, get_award_info_parser, \
+from utils.common import extract_pages_from_pdf, generate_basic_results, get_award_info_parser, \
         get_basic_info_parser, get_certification_info_parser, get_company_info_parser, \
         get_contact_info_parser, get_education_info_parser, get_skill_info_parser
 
@@ -28,17 +28,17 @@ def get_layout_profile(file_upload_var, GEMINI_AI):
   progress_bar.progress(13, 'Extracting basic information...')
 
   basic_info_parser = get_basic_info_parser()
-  basic_info = generate_results(GEMINI_AI, EXTRACT_PAGES, basic_info_parser)
+  basic_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'BASIC', basic_info_parser)
 
   progress_bar.progress(25, 'Extracting contact information...')
 
   contact_info_parser = get_contact_info_parser()
-  contact_info = generate_results(GEMINI_AI, EXTRACT_PAGES, contact_info_parser)
+  contact_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'CONTACT', contact_info_parser)
 
   progress_bar.progress(38, 'Extracting education information...')
 
   education_info_parser = get_education_info_parser()
-  education_info = generate_results(GEMINI_AI, EXTRACT_PAGES, education_info_parser)
+  education_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'EDUCATION', education_info_parser)
   education_info = pd.DataFrame(education_info['education_info'])
   if len(education_info.columns) == 4 and education_info.shape[0] > 0:
       education_info.columns = ['Institution', 'Degree', 'Passing Date',
@@ -49,12 +49,12 @@ def get_layout_profile(file_upload_var, GEMINI_AI):
   progress_bar.progress(50, 'Extracting skill information...')
 
   skills_info_parser = get_skill_info_parser()
-  skill_info = generate_results(GEMINI_AI, EXTRACT_PAGES, skills_info_parser)
+  skill_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'SKILLS', skills_info_parser)
 
   progress_bar.progress(63, 'Extracting company information...')
 
   company_info_parser = get_company_info_parser()
-  company_info = generate_results(GEMINI_AI, EXTRACT_PAGES, company_info_parser)
+  company_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'COMPANY', company_info_parser)
   company_info = pd.DataFrame(company_info['company_info'])
   if len(company_info.columns) == 5 and company_info.shape[0] > 0:
       company_info.columns = ['Company Name', 'Start Date', 'End Date', \
@@ -65,7 +65,7 @@ def get_layout_profile(file_upload_var, GEMINI_AI):
   progress_bar.progress(75, 'Extracting award information...')
 
   award_info_parser = get_award_info_parser()
-  award_info = generate_results(GEMINI_AI, EXTRACT_PAGES, award_info_parser)
+  award_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'AWARD', award_info_parser)
   award_info = pd.DataFrame(award_info['award_info'])
   if len(award_info.columns) == 5 and award_info.shape[0] > 0:
       award_info.columns = ['Award Name', 'Organization', 'Year', 'Amount',
@@ -76,8 +76,8 @@ def get_layout_profile(file_upload_var, GEMINI_AI):
   progress_bar.progress(88, 'Extracting certification information...')
 
   certification_info_parser = get_certification_info_parser()
-  certification_info = generate_results(GEMINI_AI, EXTRACT_PAGES,
-                                        certification_info_parser)
+  certification_info = generate_basic_results(GEMINI_AI, EXTRACT_PAGES, 'CERTIFICATION',
+                                              certification_info_parser)
   certification_info = pd.DataFrame(certification_info['cert_info'])
   if len(certification_info.columns) == 2 and certification_info.shape[0] > 0:
       certification_info.columns = ['Certification Name', 'Year']
