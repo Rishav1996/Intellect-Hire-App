@@ -4,4 +4,4 @@ langchain-community==0.0.13
 pandas
 google-generativeai
 pypdf
-dotenv
+python-dotenv
