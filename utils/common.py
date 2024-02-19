@@ -1,4 +1,4 @@
-"""generation_config
+"""
 This file contains the common functions used in the Intellect Hire app.
 """
 import base64
@@ -189,6 +189,7 @@ def generate_ask_resume_results(api_key, page, question):
     return response
 
 
+@st.cache_data
 def img_to_bytes(img_path):
     """
     Convert an image file to a base64 encoded string.
@@ -204,6 +205,7 @@ def img_to_bytes(img_path):
     return encoded
 
 
+@st.cache_data
 def img_to_html(img_path):
     """
     Convert an image to HTML representation.
