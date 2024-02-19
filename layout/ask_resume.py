@@ -15,8 +15,10 @@ def get_layout_ask_resume(file_upload_var, GEMINI_AI):
   if "messages" not in st.session_state:
       st.session_state.messages = []
 
-  st.download_button("Download Chat", json.dumps(st.session_state.messages), "chat.json", "json")
-  st.button("Clear Chat", on_click=lambda: st.session_state.messages.clear())
+  button_col = st.columns([1, 2, 3])
+
+  button_col[0].download_button("Download Chat", json.dumps(st.session_state.messages), "chat.json", "json", type="primary")
+  button_col[1].button("Clear Chat", on_click=lambda: st.session_state.messages.clear())
 
   for message in st.session_state.messages:
       with st.chat_message(message["role"]):
