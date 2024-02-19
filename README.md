@@ -3,6 +3,9 @@
 [![Pylint](https://github.com/Rishav1996/Intellect-Hire-App/actions/workflows/testing_release.yml/badge.svg)](https://github.com/Rishav1996/Intellect-Hire-App/actions/workflows/testing_release.yml)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://intellect-hire-app.streamlit.app/)
 [![GitHub release](https://img.shields.io/github/release/Rishav1996/Intellect-Hire-App.svg)](https://github.com/Rishav1996/Intellect-Hire-App/releases)
+[![GitHub branches](https://badgen.net/github/branches/Rishav1996/Intellect-Hire-App)](https://github.com/Rishav1996/Intellect-Hire-App/)
+[![GitHub commits](https://badgen.net/github/commits/Rishav1996/Intellect-Hire-App)](https://github.com/Rishav1996/Intellect-Hire-App/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/Rishav1996/Intellect-Hire-App)](https://gitHub.com/Rishav1996/Intellect-Hire-App/commit/)
 
 "Intellect Hire: The AI Talent Curator" streamlines hiring by extracting resume details, prompting users to upload resumes, matching candidates with jobs, and evaluating candidate suitability, enhancing recruitment efficiency and accuracy.
 
