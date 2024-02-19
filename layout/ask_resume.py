@@ -16,6 +16,7 @@ def get_layout_ask_resume(file_upload_var, GEMINI_AI):
       st.session_state.messages = []
 
   st.download_button("Download Chat", json.dumps(st.session_state.messages), "chat.json", "json")
+  st.button("Clear Chat", on_click=lambda: st.session_state.messages.clear())
 
   for message in st.session_state.messages:
       with st.chat_message(message["role"]):
