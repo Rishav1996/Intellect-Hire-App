@@ -15,7 +15,7 @@
 
 ✅ Ask any question from the Resume
 
-🚧 Job Matching with respect to any job description
+✅ Job Matching with respect to any job description
 
 🚧 Candidate Evaluation
 
