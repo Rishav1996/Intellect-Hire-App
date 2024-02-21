@@ -2,6 +2,7 @@
 Intellect Hire: The AI Talent Curator
 """
 import streamlit as st
+from layout.job_matcher import get_layout_job_matcher
 
 from utils.common import check_env_api_key, img_to_html
 from layout.profile import get_layout_profile
@@ -50,7 +51,7 @@ if GEMINI_AI:
             get_layout_ask_resume(file_upload_var, GEMINI_AI)
 
         with tabs[2]:
-            st.info("Feature Coming Soon")
+            get_layout_job_matcher(file_upload_var, GEMINI_AI)
 
         with tabs[3]:
             st.info("Feature Coming Soon")
