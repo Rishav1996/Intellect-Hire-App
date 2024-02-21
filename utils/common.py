@@ -13,19 +13,24 @@ import streamlit as st
 from langchain.output_parsers import PydanticOutputParser
 from utils.prompt_structure import BasicInfoTemplate, ContactInfoTemplate, \
   EducationListInfoTemplate, CompanyListInfoTemplate, AwardListInfoTemplate, \
-  CertificationListInfoTemplate, SkillInfoTemplate
+  CertificationListInfoTemplate, JobMatchingTemplate, SkillInfoTemplate
 
 
 generation_basic_config = {
   "temperature": 0,
   "top_p": 1,
   "top_k": 1,
-  "max_output_tokens": 2048,
+  "max_output_tokens": 2048
 }
 
 generation_ask_resume_config = {
   "temperature": 1,
-  "max_output_tokens": 2048,
+  "max_output_tokens": 2048
+}
+
+generation_job_matcher_config = {
+  "temperature": 0,
+  "max_output_tokens": 2048
 }
 
 BASIC_PROMPT = """# ROLE : `{role}`
@@ -40,8 +45,14 @@ ASK_RESUME_PROMPT = """# ROLE : `{role}`
 # NOTE : `{note}`
 # OUTPUT : """
 
+JOB_MATCH_PROMPT = """# ROLE : `{role}`
+# CONTEXT : `{context}`
+# JOB DESCRIPTION : `{job_description}`
+# FORMAT : `{format}`"""
+
 basic_prompt_template = PromptTemplate.from_template(BASIC_PROMPT)
 ask_resume_prompt_template = PromptTemplate.from_template(ASK_RESUME_PROMPT)
+job_match_prompt_template = PromptTemplate.from_template(JOB_MATCH_PROMPT)
 
 
 def check_env_api_key():
@@ -112,6 +123,14 @@ def get_skill_info_parser():
     """
     skill_object_output_parser = PydanticOutputParser(pydantic_object=SkillInfoTemplate)
     return skill_object_output_parser
+
+
+def get_job_matcher_parser():
+    """
+    Function to get the job matcher parser.
+    """
+    job_matcher_object_output_parser = PydanticOutputParser(pydantic_object=JobMatchingTemplate)
+    return job_matcher_object_output_parser
 
 
 @st.cache_data(max_entries=10, show_spinner=False, ttl=3600)
@@ -187,6 +206,31 @@ def generate_ask_resume_results(api_key, page, question):
     response = model.generate_content(prompt)
     response = response.text
     return response
+
+
+@st.cache_data(max_entries=10, show_spinner=False, ttl=3600)
+def generate_job_match_results(api_key, page, job_description, _output_parser):
+    """
+    Generate job match results using the specified API key, page, and job description.
+    """
+    result_obj = ""
+    max_retries = 10
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel(model_name="gemini-pro",
+                                  generation_config=generation_job_matcher_config)
+    while max_retries != 0:
+        try:
+            prompt = job_match_prompt_template.format(role="You are an AI Based Job Description Matcher",
+                                                    context=page,
+                                                    job_description=job_description,
+                                                    format=_output_parser.get_format_instructions())
+            response = model.generate_content(prompt)
+            result_obj = _output_parser.parse_with_prompt(prompt=prompt, completion=response.text)
+            result_obj = result_obj.dict()
+            break
+        except Exception:
+            max_retries = max_retries - 1
+    return result_obj
 
 
 @st.cache_data
