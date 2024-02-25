@@ -42,7 +42,7 @@ if GEMINI_AI:
 
     if file_upload_var:
         with align_tabs_col[1]:
-            tabs = st.tabs(['Profile', 'Ask Resume', 'Job Matching', 'Candidate Evaluation'])
+            tabs = st.tabs(['Profile', 'Ask Resume', 'Job Matching'])
 
         with tabs[0]:
             get_layout_profile(file_upload_var, GEMINI_AI)
@@ -52,9 +52,6 @@ if GEMINI_AI:
 
         with tabs[2]:
             get_layout_job_matcher(file_upload_var, GEMINI_AI)
-
-        with tabs[3]:
-            st.info("Feature Coming Soon")
 
 else:
     st.error("Please enter your Google Gemini API key")

@@ -17,8 +17,6 @@
 
 ✅ Job Matching with respect to any job description
 
-🚧 Candidate Evaluation
-
 To use this application - Generate a Google Gemini API Key
 
 Demo
