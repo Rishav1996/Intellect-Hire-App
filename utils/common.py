@@ -6,11 +6,11 @@ from pathlib import Path
 import os
 from langchain.document_loaders.pdf import PyPDFLoader
 from langchain.prompts import PromptTemplate
+from langchain.output_parsers import PydanticOutputParser
 import google.generativeai as genai
 import dotenv
 import streamlit as st
 
-from langchain.output_parsers import PydanticOutputParser
 from utils.prompt_structure import BasicInfoTemplate, ContactInfoTemplate, \
   EducationListInfoTemplate, CompanyListInfoTemplate, AwardListInfoTemplate, \
   CertificationListInfoTemplate, JobMatchingTemplate, SkillInfoTemplate

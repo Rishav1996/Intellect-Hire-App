@@ -1,7 +1,6 @@
 """
 This file contains all the profile layout for the UI.
 """
-import os
 import time
 import streamlit as st
 import pandas as pd
@@ -80,7 +79,8 @@ def get_layout_profile(file_upload_var, gemini_ai_api_key):
 
     progress_bar.progress(88, 'Extracting certification information...')
 
-    certification_info = generate_basic_results(gemini_ai_api_key, extract_profile_pages, 'CERTIFICATION',
+    certification_info = generate_basic_results(gemini_ai_api_key, extract_profile_pages,
+                                                'CERTIFICATION',
                                                 parser['certification_parser'])
     certification_info = pd.DataFrame(certification_info['cert_info'])
     if len(certification_info.columns) == 2 and certification_info.shape[0] > 0:
