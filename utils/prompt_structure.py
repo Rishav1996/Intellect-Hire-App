@@ -176,9 +176,12 @@ class JobMatchingTemplate(BaseModel):
     """
     This class represents the Job Matching Comparison of the candidate.
     """
-    job_matching_score: float = Field(description="Generate a Job Match Score between the given resume context & job description",
-                                     type='float')
-    improvement_area: list = Field(description="Generate the list of improvement area for the given resume context with respect to job description",
-                                  type='list')
-    job_required_skills: list = Field(description="Extract the list of skills provided in the job description",
+    job_matching_score: float = Field(description="Generate a Job Match Score between \
+                                      the given resume context & job description",
+                                      type='float')
+    improvement_area: list = Field(description="Generate the list of improvement area \
+                                   for the given resume context with respect to job description",
+                                   type='list')
+    job_required_skills: list = Field(description="Extract the list of skills provided \
+                                      in the job description",
                                       type='list')
