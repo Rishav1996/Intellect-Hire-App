@@ -1,8 +1,10 @@
 name: Testing Release
 
 on: 
+  pull_request:
+    types: [ closed ]
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   pylint_check:
