@@ -168,7 +168,7 @@ def generate_basic_results(api_key, page, flag, _output_parser):
     result_obj = ""
     feedback = "N/A"
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name="gemini-pro",
+    model = genai.GenerativeModel(model_name="gemini-2.5-pro",
                                   generation_config=generation_basic_config)
     while max_retries != 0:
         try:
@@ -195,7 +195,7 @@ def generate_ask_resume_results(api_key, page, question):
     Generate ask resume results using the specified API key, page, and question.
     """
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name="gemini-pro",
+    model = genai.GenerativeModel(model_name="gemini-2.5-pro",
                                   generation_config=generation_ask_resume_config)
 
     prompt = ask_resume_prompt_template.format(role="You are an AI Based Question & Answer \
@@ -216,7 +216,7 @@ def generate_job_match_results(api_key, page, job_description, _output_parser):
     result_obj = ""
     max_retries = 10
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(model_name="gemini-pro",
+    model = genai.GenerativeModel(model_name="gemini-2.5-pro",
                                   generation_config=generation_job_matcher_config)
     while max_retries != 0:
         try:
